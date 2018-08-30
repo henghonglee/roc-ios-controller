@@ -30,6 +30,6 @@ Creating a chat app is insanely hard. Not only the UI but also the data layer. W
   # s.public_header_files = 'Pod/Classes/**/*.h'
   s.frameworks = 'UIKit'
   s.dependency 'RealmSwift', '~> 3.7.6'
-  s.dependency 'Chatto', '~> 3.1.0'
-  s.dependency 'ChattoAdditions', '~> 3.1.0'
+  s.dependency 'Chatto', '~> 3.3.1'
+  s.dependency 'ChattoAdditions', '~> 3.3.1'
 end
