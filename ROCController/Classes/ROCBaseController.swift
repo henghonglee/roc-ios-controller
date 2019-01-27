@@ -13,23 +13,31 @@ import RealmSwift
 
 open class ROCBaseController<T: ROCChatMessage>: BaseChatViewController, ROCInputViewDelegate {
     
-    open var messageHandler = ROCBaseMessageHandler()
+    let messageHandler: ROCBaseMessageHandler
     
-    public init(results: Results<T>){
+    public init(dataSource: ROCDataSource<T>, interactionHandler: ROCBaseMessageHandler){
+        messageHandler = interactionHandler
         super.init(nibName: nil, bundle: nil)
-        self.chatDataSource = ROCDataSource<T>(results: results)
+        self.chatDataSource = dataSource
         self.chatItemsDecorator = ROCDecorator()
     }
     
     required public init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
-    
+
     open override func viewDidLoad() {
         super.viewDidLoad()
-        (self.chatDataSource as! ROCDataSource<T>).observe()
     }
+
+  open override func viewWillAppear(_ animated: Bool) {
+    super.viewWillAppear(animated)
+    (self.chatDataSource as! ROCDataSource<T>).observe()
+  }
+  open override func viewWillDisappear(_ animated: Bool) {
+    super.viewWillDisappear(animated)
+    (self.chatDataSource as! ROCDataSource<T>).stop()
+  }
     
     open override func createChatInputView() -> UIView {
         let inputView = ROCInputView()

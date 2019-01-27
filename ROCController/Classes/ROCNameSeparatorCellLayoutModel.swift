@@ -23,7 +23,7 @@ open class ROCNameSeparatorCellLayoutModel {
         let text: String
         let font: UIFont
         let textInsets: UIEdgeInsets
-        let isIncoming: Bool
+        let isIncoming: DeliveryDirection
         let preferredMaxLayoutWidth: CGFloat
         
         var hashValue: Int {
@@ -70,8 +70,8 @@ open class ROCNameSeparatorCellLayoutModel {
     private func replicateUITextViewNSTextStorage() -> NSTextStorage {
         // See https://github.com/badoo/Chatto/issues/129
         return NSTextStorage(string: self.layoutContext.text, attributes: [
-            NSFontAttributeName: self.layoutContext.font,
-            "NSOriginalFont": self.layoutContext.font
+          kCTFontAttributeName as NSAttributedStringKey: self.layoutContext.font,
+          NSAttributedStringKey(rawValue: "NSOriginalFont"): self.layoutContext.font
             ])
     }
 

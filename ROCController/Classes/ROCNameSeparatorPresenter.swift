@@ -31,7 +31,16 @@ open class ROCNameSeparatorPresenter: ChatItemPresenterProtocol {
             assert(false, "expecting status cell")
             return
         }
-        cell.setTextOnLabel(model.name, model.isIncoming ? .left : .right)
+      var alignment: NSTextAlignment
+      switch model.isIncoming {
+      case .incoming, .admin:
+        alignment = .left
+//      case :
+//        alignment = .center
+      case .outgoing:
+        alignment = .right
+      }
+        cell.setTextOnLabel(model.name, alignment)
         
     }
     

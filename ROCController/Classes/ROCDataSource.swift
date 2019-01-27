@@ -24,11 +24,10 @@ open class ROCDataSource<T: ROCChatMessage>: ChatDataSourceProtocol {
         
     }
     open func adjustNumberOfMessages(preferredMaxCount: Int?, focusPosition: Double, completion: ((Bool)) -> Void) {
-        
     }
     
     
-    private var _token: NotificationToken?
+    open var _token: NotificationToken?
     public var results: Results<T> {
         return _results
     }
@@ -38,20 +37,21 @@ open class ROCDataSource<T: ROCChatMessage>: ChatDataSourceProtocol {
         self._results = results
     }
     
-    public func observe(){
-        self._token?.stop()
-        self.delegate?.chatDataSourceDidUpdate(self, updateType: .reload)
-        self._token = self._results.addNotificationBlock({ [weak self] (changes) in
-            guard let `self` = self else { return }
-            var chatItems = [ChatItemProtocol]()
-            for r in self.results {
-                let copy = T(value: r, schema: RLMSchema.partialShared())
-                let textMessageModel = ROCTextMessageModel(messageModel: copy, text: copy.text)
-                chatItems.append(textMessageModel)
-            }
-            self.chatItems = chatItems
-            self.delegate?.chatDataSourceDidUpdate(self)
-        })
+    open func observe(){
+      self._token?.invalidate()
+      self.delegate?.chatDataSourceDidUpdate(self, updateType: .reload)
+      self._token = self._results.observe({ [weak self] (changes) in
+        guard let `self` = self else { return }
+        var chatItems = [ChatItemProtocol]()
+        for r in self.results {
+            let copy = T(value: r, schema: RLMSchema.partialShared())
+            let mutableAttrString = NSMutableAttributedString(string: copy.text)
+            let textMessageModel = ROCTextMessageModel(messageModel: copy, text: mutableAttrString)
+            chatItems.append(textMessageModel)
+        }
+        self.chatItems = chatItems
+        self.delegate?.chatDataSourceDidUpdate(self)
+      })
     }
     
     public func reload(){
@@ -59,10 +59,10 @@ open class ROCDataSource<T: ROCChatMessage>: ChatDataSourceProtocol {
     }
     
     public func stop(){
-        _token?.stop()
+      _token?.invalidate()
     }
     
     deinit {
-        _token?.stop()
+        _token?.invalidate()
     }
 }

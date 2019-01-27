@@ -11,7 +11,7 @@ import ChattoAdditions
 
 open class ROCTextMessageModel: TextMessageModel<ROCChatMessage> {
     
-    public override init(messageModel: ROCChatMessage, text: String) {
+    public override init(messageModel: ROCChatMessage, text: NSAttributedString) {
         super.init(messageModel: messageModel, text: text)
     }
     

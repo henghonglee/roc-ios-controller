@@ -8,9 +8,9 @@
 
 import UIKit
 
-class ROCInternalImageGetter {
+public class ROCInternalImageGetter {
     
-    class func loadImage(name: String) -> UIImage? {
+    public class func loadImage(name: String) -> UIImage? {
         let podBundle = Bundle(for: ROCInternalImageGetter.self)
         return UIImage(named: name, in: podBundle, compatibleWith: nil)
     }

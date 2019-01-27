@@ -118,13 +118,13 @@ public class ROCInputView : UIView, UITextViewDelegate {
         }
     }
     
-    func sendButtonDidTap(){
+  @objc func sendButtonDidTap(){
         delegate?.sendButtonDidTap(text: textView.text)
         textView.text = ""
         evaluateSendButtonAlpha()
     }
     
-    func attachmentButtonDidTap(){
+  @objc func attachmentButtonDidTap(){
         delegate?.attachmentButtonDidTapped()
     }
     

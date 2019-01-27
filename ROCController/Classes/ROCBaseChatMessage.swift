@@ -13,18 +13,18 @@ import ChattoAdditions
 
 open class ROCChatMessage: Object {
     
-    public dynamic var chatMessageId: String = UUID().uuidString
-    public dynamic var timestamp: Date = Date()
-    public dynamic var userId: String = UUID().uuidString
-    public dynamic var userDisplayName: String = ""
+    @objc public dynamic var chatMessageId: String = UUID().uuidString
+    @objc public dynamic var timestamp: Date = Date()
+    @objc public dynamic var userId: String = UUID().uuidString
+    @objc public dynamic var userDisplayName: String = ""
     
-    public dynamic var text: String = ""
-    public dynamic var mimeType: String = "text/plain"
+    @objc public dynamic var text: String = ""
+    @objc public dynamic var mimeType: String = "text/plain"
     
     /**
      * You can store JSON or any blob data here.
      */
-    public dynamic var binaryData: NSData? = nil
+    @objc public dynamic var binaryData: NSData? = nil
     
     override open static func primaryKey() -> String? {
         return "chatMessageId"
@@ -54,8 +54,8 @@ extension ROCChatMessage: ROCMessageModelProtocol {
         return userId
     }
     
-    open var isIncoming : Bool {
-        return true
+    @objc open var isIncoming : DeliveryDirection {
+        return .incoming
     }
     
     public var status: MessageStatus {

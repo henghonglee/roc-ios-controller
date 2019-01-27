@@ -11,10 +11,10 @@ import UIKit
 import Chatto
 import ChattoAdditions
 
-class ROCTextMessageCollectionViewCellStyle : TextMessageCollectionViewCellDefaultStyle {
-    
-    override func textFont(viewModel: TextMessageViewModelProtocol, isSelected: Bool) -> UIFont {
+public class ROCTextMessageCollectionViewCellStyle : TextMessageCollectionViewCellDefaultStyle {
+
+    public override func textFont(viewModel: TextMessageViewModelProtocol, isSelected: Bool) -> UIFont {
         return UIFont.systemFont(ofSize: 16)
     }
-    
+
 }

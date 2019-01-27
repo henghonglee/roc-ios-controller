@@ -11,7 +11,7 @@ import ChattoAdditions
 
 public class ROCTextMessageViewModel: TextMessageViewModel<ROCTextMessageModel>, ROCMessageViewModelProtocol {
     
-    override init(textMessage: ROCTextMessageModel, messageViewModel: MessageViewModelProtocol) {
+    public override init(textMessage: ROCTextMessageModel, messageViewModel: MessageViewModelProtocol) {
         super.init(textMessage: textMessage, messageViewModel: messageViewModel)
     }
     

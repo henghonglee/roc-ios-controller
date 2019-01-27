@@ -58,7 +58,9 @@ final class ROCDecorator: ChatItemsDecoratorProtocol {
                 }
                 
                 if addNameSeparator {
-                    let nameSeparatorModel = ROCNameSeparatorModel(uId: "\(currentMessage.uid)-name-seperator", name: currentMessage.senderId, isIncoming: currentMessage.isIncoming)
+                  let rocMessageModel = chatItem as! ROCTextMessageModel
+                  let name = rocMessageModel._messageModel.userDisplayName
+                    let nameSeparatorModel = ROCNameSeparatorModel(uId: "\(currentMessage.uid)-name-seperator", name: name, isIncoming: currentMessage.isIncoming)
                     nameSeparator = DecoratedChatItem(chatItem: nameSeparatorModel, decorationAttributes: nil)
                 }
             }
@@ -66,11 +68,12 @@ final class ROCDecorator: ChatItemsDecoratorProtocol {
             if let nameSeparator = nameSeparator {
                 decoratedChatItems.append(nameSeparator)
             }
-            
+
+          let base = BaseMessageDecorationAttributes(canShowFailedIcon: false, isShowingTail: showsTail, isShowingAvatar: showsTail, isShowingSelectionIndicator: false, isSelected: false)
             decoratedChatItems.append(DecoratedChatItem(
                 chatItem: chatItem,
-                decorationAttributes: ChatItemDecorationAttributes(bottomMargin: bottomMargin, showsTail: showsTail, canShowAvatar: showsTail))
-            )
+                decorationAttributes: ChatItemDecorationAttributes(bottomMargin:  bottomMargin,
+                                                                   messageDecorationAttributes: base)))
             decoratedChatItems.append(contentsOf: additionalItems)
             
             
